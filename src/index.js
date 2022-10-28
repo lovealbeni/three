@@ -1,4 +1,5 @@
 import * as T from 'three';
+import * as dat from 'dat.gui';
 
 const scene = new T.Scene();
 const camera = new T.PerspectiveCamera( 25, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -39,6 +40,13 @@ renderer.render( scene, camera );
 
 renderer.setAnimationLoop( animation );
 
+
+const gui = new dat.GUI();
+var controls = new function() {
+  this.position = 4;
+}
+gui.add(controls, 'position',-4,4);
+
 document.body.appendChild( renderer.domElement );
 
 
@@ -47,6 +55,8 @@ document.body.appendChild( renderer.domElement );
 function animation( time ) {
 
 	spotLight.position.set(Math.sin(time/1000)*20, 40, Math.cos(time/1000)*20);
+
+  Box.position.set(controls.position,4,controls.position);
 
 	renderer.render( scene, camera );
 
