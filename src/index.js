@@ -22,6 +22,26 @@ Plane.receiveShadow = true;
 Plane.rotation.x = -0.5 * Math.PI;
 Plane.position.set( 15, 0, 0 );
 
+const vertices = [
+  new T.Vector3(1,3,1),
+  new T.Vector3(1,3,-1),
+  new T.Vector3(1,-1,1),
+  new T.Vector3(1,-1,-1),
+  new T.Vector3(-1,3,-1),
+  new T.Vector3(-1,3,1),
+  new T.Vector3(-1,-1,-1),
+  new T.Vector3(-1,-1,1),
+].map(item => [item.x,item.y,item.z]).flat();
+
+const geometry = new T.BufferGeometry();
+geometry.setAttribute('position',new T.BufferAttribute(new Float32Array(vertices),3));
+geometry.computeVertexNormals();
+const custom = new T.Mesh(geometry,new T.MeshBasicMaterial({color: 0xff0000}));
+custom.position.set(1,0,0);
+
+scene.add(custom);
+
+
 scene.add( Box );
 scene.add( Plane );
 
